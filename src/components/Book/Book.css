@@ -1,0 +1,18 @@
+.booking_form{
+    width: 60%;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.bookwraper{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+label{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+    padding: 8px 0;
+}

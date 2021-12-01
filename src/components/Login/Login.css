@@ -1,0 +1,118 @@
+.form-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+
+}
+.form-wraper{
+    width: 400px;
+    border: 2px solid #9c8b8b ;
+    padding: 25px;
+
+}
+.form>p{
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 30px;
+
+
+}
+.forminput{
+    border: none !important;
+    outline: none !important;
+    border-bottom: 1px solid black !important;
+    border-radius: 0px !important;
+    line-height: 40px !important;
+    padding: 10px 0 !important;
+    box-shadow: none !important;
+
+}
+.checkboxwraper{
+    display: flex;
+    justify-content: space-between;
+
+}
+.checkboxwraper>a{
+    color: #F9A51A ;
+}
+.checkboxwraper>a:hover{
+    color: #F9A51A ;
+    font-weight: 400;
+}
+.checkbox{
+    color: rgb(61, 38, 38) !important;
+    font-weight: 500;
+    font-size: 13px;
+}
+.loginbtn>button{
+    width: 100%;
+    border: none;
+    line-height: 35px;
+    background-color:#F9A51A ;
+    font-size: 15px;
+    font-weight: 500;
+}
+.sigunuptext{
+    text-align: center;
+}
+.sigunuptext>p{
+    color: rgb(61, 38, 38) !important;
+    font-weight: 500;
+    font-size: 13px;
+
+}
+.sigunuptext>p>span>a{
+    color: #F9A51A !important;
+    cursor: pointer !important;
+
+}
+.signinbtn{
+    width: 300px;
+    height: 45px;
+    border: 1px solid #d6d1d1 ;
+    
+    display: flex !important;
+    justify-content: space-around;
+ 
+    cursor: pointer;
+    border-radius: 30px;
+    margin-top: 20px !important;
+    padding: 5px 0;
+   
+    
+   
+   
+   
+
+}
+.signinbtn>i{
+    
+    background-color: #2F75FF;
+    height: 25px;
+    width: 25px;
+    
+    color:white;
+    font-size: 15px !important;
+    
+    border-radius: 50%;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px !important;
+    
+}
+.signinbtn>p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #232323 !important;
+    line-height: 20px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
