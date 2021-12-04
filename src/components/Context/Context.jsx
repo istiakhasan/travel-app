@@ -6,6 +6,7 @@ const Cart=createContext()
 const Context = ({children}) => {
 
     const [product,setProduct]=useState(data)
+    const [loggedInUser,setLoggedInUser]=useState({})
     const [cart,setCart]=useState([])
 
     const addToCart=(product)=>{
@@ -14,7 +15,7 @@ const Context = ({children}) => {
     }
     
     return (
-        <Cart.Provider value={{product,addToCart,cart}}>
+        <Cart.Provider value={{product,addToCart,cart,loggedInUser,setLoggedInUser}}>
 
             {children}
             

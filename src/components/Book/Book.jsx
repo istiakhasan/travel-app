@@ -3,21 +3,29 @@ import {Container, Grid, TextField, Button} from "@mui/material"
 import Menubar from '../MenuBar/Menubar'
 
 import './Book.css'
-import {useParams} from 'react-router'
+import { useParams,useNavigate} from 'react-router-dom'
 import {ProductState} from '../Context/Context'
+
 
 const Book = () => {
     const {product} = ProductState()
+   
     const {bookid} = useParams()
     const book = product.find(pd => pd.id === bookid)
-    console.log(book)
+    const navigate=useNavigate()
+
+
+    const startbooking=()=>{
+        navigate('/bookdetails')
+    }
+   
 
     return (
         <Container className="home" maxWidth="large">
             <Menubar showbtn={true}/>
 
-            <Grid container="container">
-                <Grid item="item" md={6}>
+            <Grid container>
+                <Grid item md={6}>
 
                     <div className="banner-wraper">
 
@@ -28,20 +36,20 @@ const Book = () => {
                     </div>
 
                 </Grid>
-                <Grid item="item" md={6} alignItems="center">
+                <Grid item md={6} >
                     <div className="booking_form">
 
                         <form>
                             <div className="form-group">
                                 <label>Origin</label>
-                                <TextField label="Origin" fullWidth="fullWidth"/>
+                                <TextField label="Origin" fullWidth/>
 
                             </div>
 
                             <div>
                                 <label>Destination</label>
 
-                                <TextField label="Destination" fullWidth="fullWidth"/>
+                                <TextField label="Destination" fullWidth/>
 
                             </div>
 
@@ -74,10 +82,13 @@ const Book = () => {
 
                             </div>
                             <Button
+                             onClick={startbooking}
+
+                            
                                 style={{
                                     background: "#F9A51A"
                                 }}
-                                fullWidth="fullWidth"
+                                fullWidth
                                 variant="contained"
                                 sx={{
                                     mt: 5

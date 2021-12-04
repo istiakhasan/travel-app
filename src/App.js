@@ -10,6 +10,8 @@ import {
   Route
 } from "react-router-dom";
 import Book from './components/Book/Book';
+import BookDetails from './components/BookDetails/BookDetails';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 function App() {
@@ -21,6 +23,12 @@ function App() {
           <Route   path="/book/:bookid" element={<Book />} />
           <Route   path="/home" element={<Home />} />
           <Route   path="/login" element={<Login />} />
+          <Route   path="/bookdetails" element={<PrivateRoute>
+
+            <BookDetails />
+          </PrivateRoute>
+          }
+          />
         </Routes>
     
       </Router> 
