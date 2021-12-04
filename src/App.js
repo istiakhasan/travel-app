@@ -14,6 +14,8 @@ import BookDetails from './components/BookDetails/BookDetails';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
+
+
 function App() {
   return (
     <div>
@@ -23,12 +25,20 @@ function App() {
           <Route   path="/book/:bookid" element={<Book />} />
           <Route   path="/home" element={<Home />} />
           <Route   path="/login" element={<Login />} />
-          <Route   path="/bookdetails" element={<PrivateRoute>
+        
+          <Route 
+            path="/bookdetails"
+            
+            element={
+            <PrivateRoute>
 
             <BookDetails />
+            
+            
           </PrivateRoute>
           }
           />
+         
         </Routes>
     
       </Router> 

@@ -2,21 +2,20 @@ import React, { useState } from 'react'
 import { Form} from 'react-bootstrap'
 import './Login.css'
 import Menubar from '../MenuBar/Menubar'
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './firebaseconfig';
-import { FacebookAuthProvider,updateProfile,GoogleAuthProvider, getAuth, signInWithPopup,signOut,signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
+
 import { ProductState } from '../Context/Context';
 import { useLocation, useNavigate } from 'react-router';
-const app = initializeApp(firebaseConfig);
-const googleprovider = new GoogleAuthProvider();
-const facebookprovider = new FacebookAuthProvider();
+import { googlSignInUser, handlefbsignin, initializeLoginFramewordk, passwordSignIn, PasswordSignUp, signOuthandle } from './LoginManager';
+
+
 
 
 const Login = () => {
+    initializeLoginFramewordk()
     const {loggedInUser,setLoggedInUser}=ProductState()
-    const history = useNavigate()
-    const location=useLocation()
-    let {from} =location.state || {from:{pathname:"/"}};
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
     
     const[user,setUser]=useState({
         isSignedIn:false,
@@ -50,145 +49,91 @@ const Login = () => {
         
     }
 
-    const googlSignIn=()=>{
-        const auth = getAuth();
-        signInWithPopup(auth, googleprovider)
-          .then((res) => {
-            history(from)
-              const {displayName,photoURL,email}=res.user
-              const signedInUser={
-                  isSignedIn:true,
-                  name:displayName,
-                  email:email,
-                  photo:photoURL
-                  
-              }
+    //google sign in start
 
-             
-              setLoggedInUser(res.user)
+    const googleSignIn=()=>{
+        googlSignInUser()
+        .then(res=>{
+            setUser(res)
+            setLoggedInUser(res)
+            navigate(from, { replace: true });
+        })
+    }
+    //google sign in ends
 
-              setUser(signedInUser)
-            
-           
-            
-          }).catch((error) => {
-           console.log(error)
-           console.log(error.message)
-          });
 
-  
+
+    //signout start
+     
+    const signout=()=>{
+        signOuthandle()
+        .then(res=>{
+            setUser(res)
+            setLoggedInUser(res)
+        })
 
     }
+     
+    //signout ends
 
 
-    // signout handle *********************************************************************** 
-    const signOuthandle=()=>{
-        const auth = getAuth();
-signOut(auth)
-.then((res) => {
-    const signedOutUser={
-        isSignedIn:false,
-        name:'',
-        photo:'',
-        email:''
-        
-    }
-    setUser(signedOutUser)
- 
-}).catch((error) => {
- 
-});
-    }
+
+
+   
 
 
     // *******************handle submit or login handle***************************//
     const handlesubmit=(e)=>{
       
         if(newUser && user.firstname && user.lastname && user.email && user.password){
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, user.email, user.password)
-              .then((res) => {
-               
-              const newUserInfo={...user}
-              newUserInfo.error=''
-              newUserInfo.createSuccess=true
-              setUser(newUserInfo)
-              updateInformation(user.firstname,user.lastname)
-              console.log(res)
-                
-              
-              })
-              .catch((error) => {
-             const newUserInfo={...user}
-             newUserInfo.error="Email already exist"
-             setUser(newUserInfo)                
-                
-              });
+          
+           PasswordSignUp(user.firstname,user.lastname,user.email,user.pa)
+           .then(res=>{
+               setUser(res)
+               setLoggedInUser(res)
+               navigate(from, { replace: true });
+               console.log(res)
 
+           })
+           .catch(err=>console.log(err.message))
         }
 
 
         if(!newUser && user.email && user.password){
-            const auth = getAuth();
-signInWithEmailAndPassword(auth, user.email, user.password)
-  .then((res) => {
-    const newUserInfo={...user}
-    newUserInfo.error=''
-    newUserInfo.success=true
-    setUser(newUserInfo)
-    console.log(res)
-    
+
+            passwordSignIn(user.email,user.password)
+            .then(res=>{
+                setUser(res)
+                setLoggedInUser(res)
+                navigate(from,{replace:true})
+                console.log(res)
+            })
+            .catch(err=>console.log(err))
    
-    
-  })
-  .catch((error) => {
- const newUserInfo={...user}
- newUserInfo.error=error.message
- newUserInfo.success=false
- setUser(newUserInfo)
-  });
         }
         e.preventDefault()
     }
 
 
-    const updateInformation=(firstname,lastname)=>{
-        const auth = getAuth();
-updateProfile(auth.currentUser, {
-  displayName: firstname+lastname, 
- 
-}).then(() => {
-    console.log("user name update successfully ")
-   
-})
-.catch((error) => {
-  
-});
+
+
+    // facebook sign in start 
+
+     const fbsignin=()=>{
+        handlefbsignin()
+        .then(res=>{
+            setUser(res)
+            setLoggedInUser(res)
+            navigate(from, { replace: true });
+        })
     }
 
-    // facebook sign in handle
 
 
-    const handlefbsignin=()=>{
-        const auth = getAuth();
-signInWithPopup(auth, facebookprovider)
-  .then((res) => {
-    
-    const user = res.user;
+    //facebook sign in ends
 
 
-    
-    const credential = FacebookAuthProvider.credentialFromResult(res);
-    const accessToken = credential.accessToken;
 
-  })
-  .catch((error) => {
-    
-    console.log(error)
-
-    
-  });
-    }
     return (
         <>
         <Menubar showbtn={false} />
@@ -259,10 +204,10 @@ signInWithPopup(auth, facebookprovider)
                     </Form>
              
             </div>
-            <div onClick={handlefbsignin}  className="signinbtn"><i className="fab fa-facebook-f"></i><p>Connect With Facebook</p></div>
-            <div onClick={googlSignIn} className="signinbtn"><i style={{color:"#F5A29B "}} className="fab fa-google"></i> <p>Connect With Google</p></div>
+            <div onClick={fbsignin}  className="signinbtn"><i className="fab fa-facebook-f"></i><p>Connect With Facebook</p></div>
+            <div onClick={googleSignIn} className="signinbtn"><i style={{color:"#F5A29B "}} className="fab fa-google"></i> <p>Connect With Google</p></div>
 
-            <button onClick={signOuthandle}>signout</button>
+            <button onClick={signout}>signout</button>
         </div>
             
         </>

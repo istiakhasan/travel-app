@@ -28,7 +28,7 @@ console.log(cart)
             
                 cart.map(ct=>(
                     
-                    <div className="banner-wraper">
+                    <div key={ct.id} className="banner-wraper">
     
                     
                     <h1>{ct.name} </h1>

@@ -58,6 +58,7 @@ const Menubar = ({showbtn}) => {
                         <Nav.Link href="#action2">Destination</Nav.Link>
                         <Nav.Link href="#action2">Blog</Nav.Link>
                         <Nav.Link href="#action2">Contact</Nav.Link>
+                        
                         {showbtn && <Link className="activebtn" to="/login">Login</Link>}
 
                     </Nav>

@@ -20,7 +20,7 @@ const SlickSlider = () => {
 
      {
        product.map(pd=>(
-         <div className=" col-md-4  text-center">
+         <div key={pd.id} className=" col-md-4  text-center">
             <SlickSliderItem key={pd.id} pd={pd} />
 
          </div>
