@@ -13,7 +13,7 @@ import './Menubar.css'
 
 const Menubar = ({showbtn}) => {
     return (
-        <Navbar className="mb-5">
+        <Navbar className="">
             <Container fluid="fluid">
 
                 <Navbar.Brand className="logo_container">

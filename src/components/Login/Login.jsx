@@ -5,7 +5,7 @@ import Menubar from '../MenuBar/Menubar'
 
 import { ProductState } from '../Context/Context';
 import { useLocation, useNavigate } from 'react-router';
-import { googlSignInUser, handlefbsignin, initializeLoginFramewordk, passwordSignIn, PasswordSignUp, signOuthandle } from './LoginManager';
+import { googlSignInUser, handlefbsignin, initializeLoginFramewordk, signinWithemailandpassword, createuseremailAndPassword, signOuthandle } from './LoginManager';
 
 
 
@@ -13,7 +13,7 @@ import { googlSignInUser, handlefbsignin, initializeLoginFramewordk, passwordSig
 const Login = () => {
     initializeLoginFramewordk()
     const {loggedInUser,setLoggedInUser}=ProductState()
-    let navigate = useNavigate();
+    let history = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
     
@@ -56,7 +56,7 @@ const Login = () => {
         .then(res=>{
             setUser(res)
             setLoggedInUser(res)
-            navigate(from, { replace: true });
+            history(from, { replace: true });
         })
     }
     //google sign in ends
@@ -85,30 +85,27 @@ const Login = () => {
     // *******************handle submit or login handle***************************//
     const handlesubmit=(e)=>{
       
-        if(newUser && user.firstname && user.lastname && user.email && user.password){
+        if(newUser && user.firstname &&user.lastname && user.email && user.password){
           
-           PasswordSignUp(user.firstname,user.lastname,user.email,user.pa)
-           .then(res=>{
-               setUser(res)
-               setLoggedInUser(res)
-               navigate(from, { replace: true });
-               console.log(res)
-
-           })
-           .catch(err=>console.log(err.message))
+            createuseremailAndPassword(user.firstname,user.lastname,user.email,user.password)
+            .then(res=>{
+              setUser(res)
+              setLoggedInUser(res)
+              history(from)
+              console.log(res)
+            })
+          
         }
 
 
         if(!newUser && user.email && user.password){
 
-            passwordSignIn(user.email,user.password)
+            signinWithemailandpassword(user.email,user.password)
             .then(res=>{
-                setUser(res)
-                setLoggedInUser(res)
-                navigate(from,{replace:true})
-                console.log(res)
+              setUser(res)
+              setLoggedInUser(res)
+              history(from)
             })
-            .catch(err=>console.log(err))
    
         }
         e.preventDefault()
@@ -124,7 +121,7 @@ const Login = () => {
         .then(res=>{
             setUser(res)
             setLoggedInUser(res)
-            navigate(from, { replace: true });
+            history(from, { replace: true });
         })
     }
 

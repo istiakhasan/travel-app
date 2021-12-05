@@ -84,65 +84,128 @@ export const signOuthandle = () => {
 // /*********password authenticatiion or sign up with email and password
 // ******** */
 
-export const PasswordSignUp = (firstname, lastname, email, password) => {
+// export const PasswordSignUp = (firstname, lastname, email, password) => {
+//     const auth = getAuth();
+//     return createUserWithEmailAndPassword(auth, email, password)
+//         .then((res) => {
+
+//             const newUserInfo = res.user
+//             newUserInfo.error = ""
+//             newUserInfo.success = true
+
+//             updateInformation(firstname, lastname)
+//             return newUserInfo
+//         })
+//         .catch((error) => {
+//             const newUserInfo = {}
+//             newUserInfo.error = error.message
+//             newUserInfo.success = false
+//             return newUserInfo
+
+//             // ..
+//         });
+// }
+export const createuseremailAndPassword=(firstname,lastname,email,password)=>{
     const auth = getAuth();
-    return createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-
-            const newUserInfo = res.user
-            newUserInfo.error = ""
-            newUserInfo.success = true
-
-            updateInformation(firstname, lastname)
-            return newUserInfo
-        })
-        .catch((error) => {
-            const newUserInfo = {}
-            newUserInfo.error = error.message
-            newUserInfo.success = false
-            return newUserInfo
-
-            // ..
-        });
-}
+   return  createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        
+       const newUserInfo=res.user
+       newUserInfo.error=""
+       newUserInfo.success=true
+       
+      
+       updateUserName(firstname,lastname)
+        return newUserInfo
+      })
+      .catch((error) => {
+        const newUserInfo={}
+        newUserInfo.error=error.message
+        newUserInfo.success=false
+        return newUserInfo
+       
+        // ..
+      });
+  }
 
 ///*************sign in with email and password ********* */
 
-export const passwordSignIn = (email, password) => {
+// export const passwordSignIn = (email, password) => {
+//     const auth = getAuth();
+//     return signInWithEmailAndPassword(auth, email, password)
+//         .then((res) => {
+
+//             const user = res.user;
+//             const newUserInfo = user
+//             newUserInfo.success = true
+
+//             return newUserInfo
+            
+//             // ...
+//         })
+//         .catch((error) => {
+
+//             const newUserInfo =error.message
+//             newUserInfo.success = false
+
+//             return newUserInfo
+            
+//             // ...
+//         });
+// }
+
+
+export const signinWithemailandpassword=(email,password)=>{
     const auth = getAuth();
-    return signInWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-
-            const user = res.user;
-            const newUserInfo = res.user
-            newUserInfo.success = true
-
-            return newUserInfo
-            console.log('sign in user info', res.user)
-            // ...
-        })
-        .catch((error) => {
-
-            const newUserInfo = {}
-            newUserInfo.success = false
-
-            return newUserInfo
-            console.log("something wront", error)
-            // ...
-        });
-}
+   return signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        
+        const user = res.user;
+        const newUserInfo=res.user
+        newUserInfo.success=true
+       
+        return newUserInfo
+        console.log('sign in user info',res.user)
+        // ...
+      })
+      .catch((error) => {
+    
+        const newUserInfo={}
+        newUserInfo.success=false
+      
+       
+        return newUserInfo
+        console.log("something wront",error)
+        // ...
+      });
+  }
 
 //****************update username************* */
 
-const updateInformation = (firstname, lastname) => {
+// const updateInformation = (firstname, lastname) => {
 
+//     const auth = getAuth();
+//     updateProfile(auth.currentUser, {
+//         displayName: firstname + lastname
+//     })
+//         .then(() => {
+//             console.log('user name update succesfully')
+
+//         })
+//         .catch((error) => {});
+// }
+
+
+const updateUserName=(firstname,lastname)=>{
+    
     const auth = getAuth();
     updateProfile(auth.currentUser, {
-        displayName: firstname + lastname
-    })
-        .then(() => {
-            console.log('user name update succesfully')
-
-        })
-        .catch((error) => {});
-}
+      displayName: firstname+lastname
+    }).then(() => {
+      console.log('user name update succesfully')
+     
+    }).catch((error) => {
+    
+      
+    });
+      }
